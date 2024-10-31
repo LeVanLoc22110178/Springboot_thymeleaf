@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Category</title>
+</head>
+<body>
+	<div th:replace="fragments/header :: header"></div>
+
+    <h1>Edit Category</h1>
+
+    <!-- Error message display -->
+    <div th:if="${errorMessage}" style="color: red;">
+        <p th:text="${errorMessage}"></p>
+    </div>
+
+    <form th:action="@{/admin/categories/edit}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="categoryId" th:value="${cate.categoryId}">
+
+        <label for="categoryName">Category Name:</label>
+        <input type="text" id="categoryName" name="categoryName" th:value="${cate.categoryName}" required>
+        <br><br>
+
+        <label>Current Image:</label><br>
+        <img th:src="${cate.images}" alt="Category Image" width="200px">
+        <br><br>
+
+        <label for="image">Upload New Image:</label>
+        <input type="file" id="image" name="image">
+        <br><br>
+
+        <label for="status">Status:</label><br>
+        <select id="status" name="status" required>
+            <option value="active" th:selected="${cate.status == 'active'}">Active</option>
+            <option value="inactive" th:selected="${cate.status == 'inactive'}">Inactive</option>
+        </select>
+        <br><br>
+
+        <button type="submit">Update Category</button>
+    </form>
+	<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>
